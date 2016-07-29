@@ -5,22 +5,22 @@ $api_key = ""; // an API key from the Settings > Integrations > API page in your
 $yourdomain = ""; // the first part of your help desk URL (without alias): yourdomain.helprace.com
 $server = "helprace.com";
 
-// Adds a comment to a reply
-$comment_data = json_encode(array(
-    "body" => "Content of a sample comment",
-    "plain_text" => true
+// Pass only 'primary' parameter if you wish to make an existing email primary
+$email_data = json_encode(array(
+    "email" => "test@example.com",
+    "primary" => "true"
 ));
-$topic_id = 13;
-$reply_id = 10224;
 
-$url = "https://$yourdomain.$server/api/v1/topics/$topic_id/replies/$reply_id/comments";
+$user_id = 4;
+$email_id = 73431;
+$url = "https://$yourdomain.$server/api/v1/users/$user_id/emails/$email_id";
 
 $ch = curl_init($url);
 
 $header[] = "Content-type: application/json";
 $header[] = "Accept: application/json";
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-curl_setopt($ch, CURLOPT_POSTFIELDS, $comment_data);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $email_data);
 curl_setopt($ch, CURLOPT_HEADER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 curl_setopt($ch, CURLOPT_USERPWD, "$email/api_key:$api_key");
