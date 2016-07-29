@@ -5,14 +5,19 @@ $api_key = ""; // an API key from the Settings > Integrations > API page in your
 $yourdomain = ""; // the first part of your help desk URL (without alias): yourdomain.helprace.com
 $server = "helprace.com";
 
-// Create a new ticket with a minimum set of required fields
+// Add a new reply with an attachment to the ticket on behalf of the authorized user
 $ticket_data = json_encode(array(
-  "body" => "Content of a sample ticket <br>created via API",
-  "subject" => "Sample ticket created via API",
-  "requester" => "email@example.com"
+    "body" => "A new ticket reply",
+    "attachments" => array(
+        [
+            "name" => "transparent.gif",
+            "data" => "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        ]
+    )
 ));
+$ticket_id = 2;
 
-$url = "https://$yourdomain.$server/api/v1/tickets/";
+$url = "https://$yourdomain.$server/api/v1/tickets/$ticket_id";
 
 $ch = curl_init($url);
 
